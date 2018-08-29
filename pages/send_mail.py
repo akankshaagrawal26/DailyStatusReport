@@ -51,7 +51,6 @@ class SendReport:
             smtp_obj.sendmail(mail_from, mail_to, text)
             print("Status mail successfully sent")
 
-
         except smtplib.SMTPException as smtp:
             print("Unable to send mail", str(smtp))
         except Exception as e:
