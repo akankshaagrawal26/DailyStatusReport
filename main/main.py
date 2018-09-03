@@ -1,8 +1,7 @@
-from pages.write_file import WriteStatus
-from pages.send_mail import SendReport
+from pages.daily_status_report import DailyStatusReport
 
 
-class DailyStatusReport:
+class Main:
 
     def main(self):
         """
@@ -10,16 +9,16 @@ class DailyStatusReport:
         write the status to file and mail the status of the report
         """
 
-        # Calling write_file function to write user input to the file
-        final_list = WriteStatus.write_file(self)
+        dsr = DailyStatusReport()       # Creating object 'dsr' of DailyStatusReport class
+        headers = dsr.get_headers()
+        data = dsr.get_data()
+        final_list = dsr.write_file(headers, data)
+        dsr.send_mail(final_list)
 
-        # Call to send_mail function for sending Status Report
-        SendReport.send_mail(self, final_list)
 
-
-# Creating object 'dsr' to call main Function
-dsr = DailyStatusReport()
-dsr.main()
+# Creating object 'mainObj' to call main Function
+mainObj = Main()
+mainObj.main()
 
 
 

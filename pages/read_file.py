@@ -1,6 +1,6 @@
 from configuration.config import Configuration
 from datetime import datetime
-from pages.send_mail import SendReport
+from pages.daily_status_report import DailyStatusReport
 
 
 class ReadStatus:
@@ -11,6 +11,7 @@ class ReadStatus:
         """
         temp_list = []
         in_progress_list = []
+        dsr = DailyStatusReport()
 
         # Reading the file and appending data to list
         try:
@@ -30,11 +31,10 @@ class ReadStatus:
             if "In-Progress" in data:
                 if datetime.strptime(data[3], Configuration.date_format) < datetime.now():
                     in_progress_list.append(data)
-        print("in_progress_list:")
-        print(in_progress_list)
+        print("In-progress list:", in_progress_list)
 
         # Call to send_mail function for sending In-Progress Status Report
-        SendReport.send_mail(self, in_progress_list)
+        dsr.send_mail(in_progress_list)
 
 
 # Creating object 'read_status' to call read_file Function of ReadStatus class
